@@ -39,13 +39,6 @@ def gerar_relatorio_pdf(parametro, modelo, X, y, image_id=None):
     if image_id:
         pdf.cell(200, 10, txt=f"Imagem: {image_id}", ln=True)
 
-    # Equação geral do modelo
-    #pdf.ln(5)
-    #pdf.cell(200, 10, txt="Equação do modelo:", ln=True)
-    #for var, coef in modelo.params.items():
-        #term = f"{coef:.4f} * {var}" if var != 'const' else f"Intercepto: {coef:.4f}"
-        #pdf.cell(200, 10, txt=term, ln=True)
-
     pdf.ln(5)
     pdf.cell(200, 10, txt=f"RMSE: {erro_rmse:.4f}", ln=True)
 
@@ -60,7 +53,7 @@ def gerar_relatorio_pdf(parametro, modelo, X, y, image_id=None):
     for line in summary_lines:
         pdf.multi_cell(0, 4, txt=line)
 
-    # Salvar e disponibilizar PDF
+    # PDF 
     pdf_path = os.path.join(temp_dir, f'relatorio_{parametro}.pdf')
     pdf.output(pdf_path)
 
@@ -71,3 +64,4 @@ def gerar_relatorio_pdf(parametro, modelo, X, y, image_id=None):
             file_name=f"relatorio_{parametro}.pdf",
             mime="application/pdf"
         )
+
