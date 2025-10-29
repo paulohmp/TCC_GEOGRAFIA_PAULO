@@ -156,7 +156,6 @@ def equacao_bandas(image, parametros):
         }
     }
 
-    # Garante lista
     if isinstance(parametros, str):
         parametros = [parametros]
 
@@ -165,7 +164,7 @@ def equacao_bandas(image, parametros):
     for parametro in parametros:
         expressoes = expressoes_por_parametro.get(parametro.upper())
         if not expressoes:
-            continue  # ignora parâmetros inválidos
+            continue 
 
         for nome, formula in expressoes.items():
             banda_expr = image.expression(formula, {
@@ -196,7 +195,6 @@ def aplicar_modelo_na_imagem(preditores, coeficientes, image):
     for pred in preditores:
         coef = coeficientes.get(pred)
         if coef is not None:
-            #st.write(f"\nProcessando preditor: {pred} (coef = {coef})")
 
             if pred not in image.bandNames().getInfo():
                 st.write(f"Erro: Banda {pred} não encontrada na imagem!")
@@ -209,8 +207,6 @@ def aplicar_modelo_na_imagem(preditores, coeficientes, image):
             # Verificação intermediária
             sample = resultado.sample(
                 region=image.geometry(), scale=10, numPixels=1)
-            #st.write(f"Valor parcial após {pred}:",
-                     #sample.first().getInfo()['properties'])
 
     if resultado is not None:
         resultado = resultado.rename('estimativa')
@@ -218,7 +214,6 @@ def aplicar_modelo_na_imagem(preditores, coeficientes, image):
         # Verificação final
         sample_final = resultado.sample(
             region=image.geometry(), scale=10, numPixels=1)
-        #st.write("Valor final:", sample_final.first().getInfo()
-                 #['properties']['estimativa'])
 
     return resultado
+
